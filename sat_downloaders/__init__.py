@@ -33,7 +33,7 @@ class Entry(ABC):
     def extract_files(self, dest_dir):
         with self.open() as fo:
             try:
-                zip_file = ZipFile(io.BytesIO(fo.read()))
+                zip_file = ZipFile(io.BytesIO(fo.read(decode_content=True)))
                 zip_file.extractall(dest_dir)
             except BadZipfile:
                 logger.warning("Error downloading %s, skipping...", self.filename)
