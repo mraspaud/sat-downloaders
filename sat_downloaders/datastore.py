@@ -29,34 +29,40 @@ from datetime import datetime, timedelta
 import eumdac
 from trollsift import parse
 
-from sat_downloaders import Entry, Downloader
+from sat_downloaders import Downloader, Entry
 
 logger = logging.getLogger(__name__)
 
 
 @contextmanager
 def timer(title):
+    """Time something."""
     start_time = datetime.now()
     yield
     logger.debug(title + " took %s", str(datetime.now() - start_time))
 
 
 class DSEntry(Entry):
+    """An entry for datastore."""
 
     def __init__(self, product, id_pattern):
+        """Initialize the entry."""
         self._product = product
         self.filename = product._id
         self.mda = parse(id_pattern, self.filename)
 
     @contextmanager
     def open(self):
+        """Open the entry."""
         with self._product.open() as raw:
             yield raw
 
 
 class DataStoreDownloader(Downloader):
+    """The datastore downloader."""
 
     def __init__(self, server, collection, search_days, query_args, entry_patterns):
+        """Initialize the downloader."""
         self.search_days = search_days
         self.query_args = query_args
         self.collection = collection
@@ -69,9 +75,11 @@ class DataStoreDownloader(Downloader):
 
     @classmethod
     def from_config(cls, config_item):
+        """Instantiate the class from config."""
         return cls(**config_item)
 
     def query(self):
+        """Place a query on the datastore."""
         logger.info(f"At {datetime.utcnow()}, requesting files over the baltic sea from {self.name}.")
         with timer("datastore"):
             datastore = eumdac.DataStore(self._token)
