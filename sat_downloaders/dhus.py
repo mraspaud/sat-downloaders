@@ -50,8 +50,8 @@ class DHUSDownloader(Downloader):
 
     def query(self):
         """Place the query."""
-        logger.info(f"At {datetime.utcnow()}, requesting files over the baltic sea from {self.name}.")
-        url = urljoin(self.server, f"/search?q={'+AND+'.join(self.query_args)}&rows=100&start=0")
+        logger.info(f"At {datetime.utcnow()}, requesting from {self.name}.")
+        url = urljoin(self.server, f"search?q={'+AND+'.join(self.query_args)}&rows=100&start=0")
         res = requests.get(url)
         res.raise_for_status()
         d = feedparser.parse(res.text)

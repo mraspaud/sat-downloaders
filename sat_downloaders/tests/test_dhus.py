@@ -10,7 +10,7 @@ from sat_downloaders.dhus import DHUSDownloader
 @responses.activate
 def test_dhus():
     """Test dhus downloads."""
-    server = "https://myhub.com/"
+    server = "https://myhub.com/somedhus/"
     query_args = ["producttype:GRD", "swathIdentifier:EW"]
     entry_patterns = dict(
         title_pattern=("{platform_name:3s}_{scan_mode:2s}_{type:4s}_{data_source:4s}_{start_time:%Y%m%dT%H%M%S}_"
