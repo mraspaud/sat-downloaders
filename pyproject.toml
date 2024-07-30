@@ -1,21 +1,25 @@
-[tool.poetry]
-name = "sat-downloaders"
-version = "0.0.0"
-description = ""
-authors = ["Martin Raspaud <martin.raspaud@smhi.se>"]
-license = "GPLv3"
-
-[tool.poetry.dependencies]
-python = ">=3.8, <4"
-requests = ">=2.28.1"
-
-[tool.poetry.group.test.dependencies]
-pytest = "^7.1.2"
-responses = "^0.21.0"
-
 [build-system]
-requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning-plugin"]
-build-backend = "poetry.masonry.api"
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
 
-[tool.poetry-dynamic-versioning]
-enable = true
+[project]
+name = "sat-downloaders"
+dynamic = ["version"]
+dependencies = [
+  "requests",
+  "stream-unzip",
+  "eumdac"
+]
+requires-python = ">=3.10"
+authors = [
+  {name = "Martin Raspaud", email = "martin.raspaud@smhi.se"}
+]
+
+description = ""
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
+]
+
+[tool.hatch.version]
+source = "vcs"
